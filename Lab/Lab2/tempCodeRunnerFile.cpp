@@ -4,8 +4,7 @@
 #include <cstring>
 using namespace std;
 int main(){
-    int break;
-    break = 1;
+    int ____;
     string str ="Dr Cat Can Code";
     string strClone(str,3,3);
     cout <<strClone;

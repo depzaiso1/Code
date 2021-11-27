@@ -21,4 +21,5 @@ int main()
         cout << left << setw(30) << fixed << setprecision(10) << a[i]*b[i]<<endl;
 
     }
+    return 0;
 }

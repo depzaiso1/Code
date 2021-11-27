@@ -17,7 +17,7 @@ struct student{
 int main() {
     student cls[MAX];
     int i,n;
-    double h,w;
+    float h,w;
     cout << "How many names ? \n";
     cin >> n;
 
