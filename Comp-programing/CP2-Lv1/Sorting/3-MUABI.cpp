@@ -62,7 +62,7 @@ struct marble{
 
 bool compare(const marble& x, const marble& y){
     if(x.ball != y.ball) return x.ball > y.ball;
-    return x.box < y.box;
+    return x.box >= y.box;
 }
 
 int main()
