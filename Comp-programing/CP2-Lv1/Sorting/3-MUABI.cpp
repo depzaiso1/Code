@@ -86,7 +86,7 @@ int main()
     cout << ln;
     int buy = 0;
     need = n;
-    for(int i = 0; i < n ; i++){
+    for(int i = 0; i < m ; i++){
         if(a[i].box <= need){
             buy += (a[i].box)*(a[i].ball);
             need -= a[i].box;
