@@ -34,42 +34,41 @@ double eps = 1e-12;
 #define all(x) (x).begin(), (x).end()
 #define sz(x) ((ll)(x).size())
 #define read(a) ll a; cin >> a
- 
-const int N = 1000;
-int n;
-int a[N];
-int b[N];
-int countPasses[N];
+#define forn(i, n) for(int i = 0; i < (int)(n); i++)
+int a[11000];
 
-void solve(){
+void solve() {
+	int n;
+	scanf("%d", &n);
+	rep(i, n)
+		scanf("%d", &a[i]);
+
+	int x = 0;
+	rep(i, n)
+		x ^= a[i];
+
+	if (x) {
+		puts("NO");
+		return;
+	}
+
+	int sum = 0;
+	rep(i, n)
+		sum += a[i];
+
+	sum -= *min_element(a, a + n);
+
+	cout << sum << endl;
 }
-int main(){
-    fast_cin();
-    for(int i = 0; i < n; i++){
-        cin >> a[i] >> b[i];
-        assert(0 <= a[i] && a[i] <= 1000);
-        assert(0 <= b[i] && b[i] <= 1000);
-        if(a[i] > b[i]) swap(a[i], b[i]);
-    }
 
-    for(int i = 0; i < N; i++){
-        for(int j = a[i]; j < b[i]; j++){
-            countPasses[j]++;
-        }
-    }
-    
-    int maxPasses = -1;
-    int countMax = 0;
+int main() {
 
-    for(int i = 0; i < N ; i++){
-        if(countPasses[i] > maxPasses){
-            maxPasses = countPasses[i];
-            countMax = 1;
-        }
-        else if(countPasses[i] == maxPasses){
-            countMax ++;
-        }
-    }
-    cout << countMax << '\n';
-    return 0;
+	int tt;
+	scanf("%d", &tt);
+	for(int ii = 0; ii < tt ; ii ++) {
+		printf("Case #%d: ", ii + 1);
+		solve();
+	}
+
+	return 0;
 }

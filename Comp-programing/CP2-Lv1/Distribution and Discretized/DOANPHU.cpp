@@ -35,41 +35,43 @@ double eps = 1e-12;
 #define sz(x) ((ll)(x).size())
 #define read(a) ll a; cin >> a
  
-const int N = 1000;
-int n;
-int a[N];
-int b[N];
-int countPasses[N];
-
+struct van_chuyen{
+    int A;
+    int B;
+};
+int cnt[1000];
 void solve(){
 }
 int main(){
     fast_cin();
+    read(n);
+    van_chuyen place[n];
+    for(int i = 0; i < n;i++){
+        cin >> place[i].A >> place[i].B;
+    }
     for(int i = 0; i < n; i++){
-        cin >> a[i] >> b[i];
-        assert(0 <= a[i] && a[i] <= 1000);
-        assert(0 <= b[i] && b[i] <= 1000);
-        if(a[i] > b[i]) swap(a[i], b[i]);
-    }
-
-    for(int i = 0; i < N; i++){
-        for(int j = a[i]; j < b[i]; j++){
-            countPasses[j]++;
+        if(place[i].A < place[i].B){
+            for(int j = place[i].A; j < place[i].B; j++){
+                cnt[j]++;
+            }
+        }
+        else if(place[i].A > place[i].B){
+            for(int j = place[i].B; j < place[i].A; j++){
+                cnt[j]++;
+            }
         }
     }
-    
-    int maxPasses = -1;
-    int countMax = 0;
-
-    for(int i = 0; i < N ; i++){
-        if(countPasses[i] > maxPasses){
-            maxPasses = countPasses[i];
-            countMax = 1;
+    //find_max in cnt[]
+    int max = 0, countMax;//find new MAX -> reset MAX = 1, find the same MAX ++
+    for(int i = 0; i < 1000;i++){
+        if(max < cnt[i]){
+            max = cnt[i];
+            countMax = 1;//reset MAX
         }
-        else if(countPasses[i] == maxPasses){
-            countMax ++;
+        else if(max == cnt[i]){
+            countMax++;
         }
     }
-    cout << countMax << '\n';
+    cout << countMax << ln;
     return 0;
 }

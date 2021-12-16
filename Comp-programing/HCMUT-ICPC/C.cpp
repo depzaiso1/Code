@@ -2,7 +2,7 @@
 #pragma GCC target("sse,sse2,sse3,ssse3,sse4,popcnt,abm,mmx,avx,avx2,fma")
 #pragma GCC optimize("unroll-loops")
 #include <bits/stdc++.h> 
- 
+#include <string>
 using namespace std;
  
 typedef long long ll;
@@ -35,41 +35,14 @@ double eps = 1e-12;
 #define sz(x) ((ll)(x).size())
 #define read(a) ll a; cin >> a
  
-const int N = 1000;
-int n;
-int a[N];
-int b[N];
-int countPasses[N];
 
 void solve(){
 }
 int main(){
     fast_cin();
-    for(int i = 0; i < n; i++){
-        cin >> a[i] >> b[i];
-        assert(0 <= a[i] && a[i] <= 1000);
-        assert(0 <= b[i] && b[i] <= 1000);
-        if(a[i] > b[i]) swap(a[i], b[i]);
-    }
-
-    for(int i = 0; i < N; i++){
-        for(int j = a[i]; j < b[i]; j++){
-            countPasses[j]++;
-        }
-    }
-    
-    int maxPasses = -1;
-    int countMax = 0;
-
-    for(int i = 0; i < N ; i++){
-        if(countPasses[i] > maxPasses){
-            maxPasses = countPasses[i];
-            countMax = 1;
-        }
-        else if(countPasses[i] == maxPasses){
-            countMax ++;
-        }
-    }
-    cout << countMax << '\n';
+    read(T);
+    string str;
+    getline(cin,str);
+    cout << str;
     return 0;
 }

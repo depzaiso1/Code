@@ -35,41 +35,30 @@ double eps = 1e-12;
 #define sz(x) ((ll)(x).size())
 #define read(a) ll a; cin >> a
  
-const int N = 1000;
-int n;
-int a[N];
-int b[N];
-int countPasses[N];
 
 void solve(){
 }
 int main(){
     fast_cin();
-    for(int i = 0; i < n; i++){
-        cin >> a[i] >> b[i];
-        assert(0 <= a[i] && a[i] <= 1000);
-        assert(0 <= b[i] && b[i] <= 1000);
-        if(a[i] > b[i]) swap(a[i], b[i]);
-    }
+    read(id);
+    read(k);
+    vector<int> vec;
+    ll j = 0,i = 3;
+    /*while(j<k){
+        if(i % 3 == 0 || i % 5 == 0 || i % 7 == 0)
+            j++;
+        i++;
+    }*/
 
-    for(int i = 0; i < N; i++){
-        for(int j = a[i]; j < b[i]; j++){
-            countPasses[j]++;
-        }
+    for(int i = 1; i <= 105; i++){
+        if(i % 3 == 0 || i % 5 == 0 || i % 7 == 0)
+            vec.push_back(i);
     }
-    
-    int maxPasses = -1;
-    int countMax = 0;
-
-    for(int i = 0; i < N ; i++){
-        if(countPasses[i] > maxPasses){
-            maxPasses = countPasses[i];
-            countMax = 1;
-        }
-        else if(countPasses[i] == maxPasses){
-            countMax ++;
-        }
+    if(k<=57) cout << vec[k-1] << ln;
+    else{
+        long long cycle = k / 57;
+        k -= 57*cycle;
+        cout << vec[k-1] + 105*cycle << ln;
     }
-    cout << countMax << '\n';
     return 0;
 }

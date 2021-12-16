@@ -35,41 +35,28 @@ double eps = 1e-12;
 #define sz(x) ((ll)(x).size())
 #define read(a) ll a; cin >> a
  
-const int N = 1000;
-int n;
-int a[N];
-int b[N];
-int countPasses[N];
+const int N = 1e5 + 7;
 
 void solve(){
 }
 int main(){
     fast_cin();
-    for(int i = 0; i < n; i++){
-        cin >> a[i] >> b[i];
-        assert(0 <= a[i] && a[i] <= 1000);
-        assert(0 <= b[i] && b[i] <= 1000);
-        if(a[i] > b[i]) swap(a[i], b[i]);
+    read(n);
+    read(L);
+    read(R);
+    int f[N];
+    for(int i = 1; i <= n;i++){
+        cin >> a[i].first >> a[i].second;
     }
-
-    for(int i = 0; i < N; i++){
-        for(int j = a[i]; j < b[i]; j++){
-            countPasses[j]++;
+    sort(a+1,a + n + 1);
+    for(int i = 1; i <= n; i++){
+        f[i] = max(f[i-1], a[i].second);
+    }
+    int ans = 0;
+    for(int i =1; i <= n;i++){
+        if(a[i].second < L || a[i].first > R){
+            ans
         }
     }
-    
-    int maxPasses = -1;
-    int countMax = 0;
-
-    for(int i = 0; i < N ; i++){
-        if(countPasses[i] > maxPasses){
-            maxPasses = countPasses[i];
-            countMax = 1;
-        }
-        else if(countPasses[i] == maxPasses){
-            countMax ++;
-        }
-    }
-    cout << countMax << '\n';
-    return 0;
+     return 0;
 }

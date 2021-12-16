@@ -23,7 +23,7 @@ int main() {
     }
     sort(v0, v0 + (n + 1) / 2);
     sort(v1, v1 + n / 2);
-    
+    cout << '\n';
     int err = -1;
     for(int i = 1; i < n; i++) {
       if(get(i - 1) > get(i)) { err = i - 1; break; }
