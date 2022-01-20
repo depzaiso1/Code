@@ -160,21 +160,24 @@ int traceLuggage(int& HP1, int& EXP1, int& M1, const int& E3){
 
 
         int k;
+        //cout << "Path 1" << " ";
         for(int i = 0; i < 9; i++){
             p1[i] = (int)ceil((p1[i] + E3))%26+65;
+            //cout << p1[i] << " ";
             if(p1[i] == 80){
                 found1 = true;
-                k = i;
+                k = i+1;
                 HP1 = HP1 - p1[i]*k*2;
                 EXP1 = EXP1 + (1000 - p1[i]*k)%101;
-                break;
+                M1 = M1 - k*E3*1.0/9;
+                //break;
             }
         }
-        if(found1) M1 = M1 - k*E3*1.0/9;
-        else M1 = ceil(M1 - 9*9*E3*1.0/9);
+        if(!found1) M1 = ceil(M1 - 9*9*E3*1.0/9);
 
 
         //path 2
+        //cout << "\n" << "Path 2" << " ";
         int s = 0, m = 0;
         for(int i = 0; i < 7; i++){
             p2[i] = (p2[i] + E3)%26;// cập nhật đường 2 lần 1
@@ -183,18 +186,21 @@ int traceLuggage(int& HP1, int& EXP1, int& M1, const int& E3){
         m = (int)ceil(s*1.0/7);//tính tổng và trung bình cộng
         for(int i = 0; i < 7; i++){
             p2[i] = (p2[i] + s + m)%26+65;// cập nhật đường 2 lần 2
+            //cout << p2[i] << " ";
+
             if(p2[i] == 80){
                 found2 = true;// TÌM THẤY MANH MỐI -- BREAK VÒNG LẶP
-                k = i;
+                k = i+1;
                 HP1 = HP1 - p2[i]*k*2;// cập nhật máu cập nhật kinh nghiệm
-                EXP1 = EXP1 + (1000 - p1[i]*k)%101;
+                EXP1 = EXP1 + (1000 - p2[i]*k)%101;
                 M1 = M1 - k*E3*1.0/9; // cập nhật tiền
-                break;// break vong lap
+                //break;// break vong lap
             }
         }
         if(!found2) M1 = ceil(M1 - 7*7*E3*1.0/9); //neu ko tìm được hành lý -- tính M1  
 
         //path 3
+        //cout << "\n" << "Path 3" << " ";
         int max = -1;
         for(int i = 0; i < 20; i++){
             p3[i] = (p3[i] + E3*E3)%113;
@@ -202,21 +208,25 @@ int traceLuggage(int& HP1, int& EXP1, int& M1, const int& E3){
         }
         for(int i = 19; i >= 0; i--){
             p3[i] = (int)ceil((p3[i]+E3)*1.0/max)%26+65;
+            //cout << p3[i] << " ";
             if(p3[i] == 80){
                 found3 = true;
                 k = 20 - i;
                 HP1 = HP1 - p3[i]*k*3;
                 EXP1 = EXP1 + (3500-p3[i]*k)%300;
                 M1 = M1 - k*E3*1.0/9;
-                break;
+                //break;
             }
         }
         if(!found3) M1 = ceil(M1 - 20*20*E3*1.0/9);// neu ko tìm được hành lý -- tính lại M1
 
         //path 4
+        //cout << "\n" << "Path 4" << " ";
+
         int min = 1000000007,min_idx = 1;
         for(int i = 0; i <  12; i++){
             p4[i] = (p4[i] + (int)(pow(ceil(E3*1.0/29),3)))%9;
+            
             if(p4[i] < min){
                 min = p4[i];
                 min_idx = i + 1;
@@ -224,6 +234,7 @@ int traceLuggage(int& HP1, int& EXP1, int& M1, const int& E3){
         }
         for(int i = 11; i >= 0; i--){
             p4[i] = ((p4[i] + E3) * (int)ceil(min*1.0/min_idx))%26 + 65;
+            //cout << p4[i] << " ";
             if(p4[i] == 80){
                 k = 12-i;
                 HP1 = HP1 - k*4*p4[i];
@@ -234,10 +245,13 @@ int traceLuggage(int& HP1, int& EXP1, int& M1, const int& E3){
         }
         if(!found4) M1 = ceil(M1 - 20*20*E3*1.0/9);
 
-
+        
         if(!found1 && !found2 && !found3 && !found4){
             HP1 = HP1 -(59*E3)%900;
             EXP1 = EXP1 - (79*E3)%300;
+            reset_HP(HP1);
+            reset_money(M1);
+            reset_exp(EXP1,k);
             return -1;
         }
         reset_HP(HP1);
