@@ -127,12 +127,26 @@ int investigateScene(int& EXP1, int& EXP2, int& HP2, int& M2, const int& E2){
     else return -999;
 }
 
+void path1(){
+    int p1[9] = {1,3,5,7,9,11,13,15,17};
+
+}
+void path2(){
+
+}
+void path3(){
+
+}
+void path4(){
+
+}
+
 int traceLuggage(int& HP1, int& EXP1, int& M1, const int& E3){
     //Complete this function to gain point on task 3
     int p1[9] = {1,3,5,7,9,11,13,15,17};
     int p2[7] = {2,3,5,7,11,13,17};
     int p3[20];
-    int p4[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    int p4[ ] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     for(int i = 0,j = 2; i < 20; i++){
         p3[i] = j*j;
         j += 2;
@@ -146,13 +160,14 @@ int traceLuggage(int& HP1, int& EXP1, int& M1, const int& E3){
 
 
         int k;
-        for(int i = 0; i < 8; i++){
-            if(ceil((p1[i] + E3)%26+65) == 80){
+        for(int i = 0; i < 9; i++){
+            p1[i] = (int)ceil((p1[i] + E3))%26+65;
+            if(p1[i] == 80){
                 found1 = true;
                 k = i;
                 HP1 = HP1 - p1[i]*k*2;
                 EXP1 = EXP1 + (1000 - p1[i]*k)%101;
-                //break;
+                break;
             }
         }
         if(found1) M1 = M1 - k*E3*1.0/9;
@@ -161,35 +176,73 @@ int traceLuggage(int& HP1, int& EXP1, int& M1, const int& E3){
 
         //path 2
         int s = 0, m = 0;
-        for(int i = 0; i < 6; i++){
-            p2[i] = (p2[i] + E3)%26;
-            s += p2[i];
+        for(int i = 0; i < 7; i++){
+            p2[i] = (p2[i] + E3)%26;// cập nhật đường 2 lần 1
+            s += p2[i];// tính tổng
         }
-        m = ceil(s*1.0/5);
-
-        for(int i = 0; i < 6; i++){
-            p2[i] = (p2[i] + s + m)%26+65;
-        }
-        for(int i = 0; i < 8; i++){
-            if(ceil((p1[i] + E3)%26+65) == 80){
-                found2 = true;
+        m = (int)ceil(s*1.0/7);//tính tổng và trung bình cộng
+        for(int i = 0; i < 7; i++){
+            p2[i] = (p2[i] + s + m)%26+65;// cập nhật đường 2 lần 2
+            if(p2[i] == 80){
+                found2 = true;// TÌM THẤY MANH MỐI -- BREAK VÒNG LẶP
                 k = i;
-                HP1 = HP1 - p1[i]*k*2;
+                HP1 = HP1 - p2[i]*k*2;// cập nhật máu cập nhật kinh nghiệm
                 EXP1 = EXP1 + (1000 - p1[i]*k)%101;
-                //break;
+                M1 = M1 - k*E3*1.0/9; // cập nhật tiền
+                break;// break vong lap
             }
         }
-        if(found2) M1 = M1 - k*E3*1.0/9;
-        else M1 = ceil(M1 - 7*7*E3*1.0/9); 
+        if(!found2) M1 = ceil(M1 - 7*7*E3*1.0/9); //neu ko tìm được hành lý -- tính M1  
 
         //path 3
-        for(int i = 0; )
+        int max = -1;
+        for(int i = 0; i < 20; i++){
+            p3[i] = (p3[i] + E3*E3)%113;
+            if(p3[i] > max) max = p3[i];
+        }
+        for(int i = 19; i >= 0; i--){
+            p3[i] = (int)ceil((p3[i]+E3)*1.0/max)%26+65;
+            if(p3[i] == 80){
+                found3 = true;
+                k = 20 - i;
+                HP1 = HP1 - p3[i]*k*3;
+                EXP1 = EXP1 + (3500-p3[i]*k)%300;
+                M1 = M1 - k*E3*1.0/9;
+                break;
+            }
+        }
+        if(!found3) M1 = ceil(M1 - 20*20*E3*1.0/9);// neu ko tìm được hành lý -- tính lại M1
+
+        //path 4
+        int min = 1000000007,min_idx = 1;
+        for(int i = 0; i <  12; i++){
+            p4[i] = (p4[i] + (int)(pow(ceil(E3*1.0/29),3)))%9;
+            if(p4[i] < min){
+                min = p4[i];
+                min_idx = i + 1;
+            }   
+        }
+        for(int i = 11; i >= 0; i--){
+            p4[i] = ((p4[i] + E3) * (int)ceil(min*1.0/min_idx))%26 + 65;
+            if(p4[i] == 80){
+                k = 12-i;
+                HP1 = HP1 - k*4*p4[i];
+                EXP1 = EXP1 + (4500 - p4[i]*k)%400;
+                M1 = M1 - k*E3*1.0/9;
+                found4 = true;
+            }
+        }
+        if(!found4) M1 = ceil(M1 - 20*20*E3*1.0/9);
 
 
-        
+        if(!found1 && !found2 && !found3 && !found4){
+            HP1 = HP1 -(59*E3)%900;
+            EXP1 = EXP1 - (79*E3)%300;
+            return -1;
+        }
         reset_HP(HP1);
         reset_money(M1);
-
+        reset_exp(EXP1,k);
         return HP1 + EXP1 + M1;
     }
 
