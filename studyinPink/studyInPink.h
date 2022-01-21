@@ -79,7 +79,7 @@ int firstMeet(int& EXP1, int& EXP2, const int& E1){
         }
         EXP1 = ceil(EXP1 - 0.1*E1);//Sau khi giải thích, Kinh nghiệm sherlock giảm đi 10%
         reset_exp(EXP1, EXP2);
-        return EXP2 + EXP1;
+        return EXP2 + EXP1; 
     }
     return -999;
 }
