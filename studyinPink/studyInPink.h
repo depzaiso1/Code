@@ -24,16 +24,12 @@ using namespace std;
 ///Complete the following functions
 ///DO NOT modify any parameters in the functions.
 ////////////////////////////////////////////////////////////////////////
-void reset_exp(int &EXP1, int &EXP2)
+void reset_exp(int &EXP)
 {
-    if (EXP2 > 900)
-        EXP2 = 900; // Nếu vượt quá 900, trả về 900w
-    if (EXP1 > 900)
-        EXP1 = 900;
-    if (EXP2 < 0)
-        EXP2 = 0;
-    if (EXP1 < 0)
-        EXP1 = 0;
+    if (EXP > 900)
+        EXP = 900; // Nếu vượt quá 900, trả về 900w
+    if (EXP < 0)
+        EXP = 0;
 }
 void reset_HP(int &HP)
 {
@@ -76,7 +72,8 @@ int firstMeet(int &EXP1, int &EXP2, const int &E1)
             EXP1 = ceil(EXP1 + E1 * 1.0 / 10); //Afghanistan
         else
             EXP1 = ceil(EXP1 - E1 * 1.0 / 5); //Iraq
-        reset_exp(EXP1, EXP2);
+        reset_exp(EXP1);
+        reset_exp(EXP2);
         return EXP1 + EXP2;
     }
     if (E1 >= 400 && E1 <= 999)
@@ -107,11 +104,14 @@ int firstMeet(int &EXP1, int &EXP2, const int &E1)
             }
         }
         EXP1 = ceil(EXP1 - 0.1 * E1); //Sau khi giải thích, Kinh nghiệm sherlock giảm đi 10%
-        reset_exp(EXP1, EXP2);
+        reset_exp(EXP1);
+        reset_exp(EXP2);
         return EXP2 + EXP1;
     }
     return -999;
 }
+
+//nhiem vu 2
 void ring_explain(int &EXP1, int &EXP2, const int &E2)
 {
     EXP1 = ceil(EXP1 + (E2 * 1.0 / 9 + 10) / 3);
@@ -140,8 +140,9 @@ int investigateScene(int &EXP1, int &EXP2, int &HP2, int &M2, const int &E2)
             ring_explain(EXP1, EXP2, E2);
         }
         if (E2 >= 300 && E2 <= 499)
-        { //GIAI THICH AO KHOAC
-            s jacket_explain(EXP1, EXP2, E2);
+        { //GIAI    THICH AO KHOAC
+            ring_explain(EXP1, EXP2, E2);
+            jacket_explain(EXP1, EXP2, E2);
         }
         if (E2 >= 500 && E2 <= 999)
         { //GIAI THICH HANH LY
@@ -156,7 +157,8 @@ int investigateScene(int &EXP1, int &EXP2, int &HP2, int &M2, const int &E2)
 
         if (E2 % 2 == 0)
             M2 = ceil(M2 + (E2 * E2) * 1.0 / 50);
-        reset_exp(EXP1, EXP2);
+        reset_exp(EXP1);
+        reset_exp(EXP2);
         reset_money(M2);
         reset_HP(HP2);
         return EXP2 + HP2 + M2 + EXP1;
@@ -165,27 +167,13 @@ int investigateScene(int &EXP1, int &EXP2, int &HP2, int &M2, const int &E2)
         return -999;
 }
 
-void path1()
-{
-    int p1[9] = {1, 3, 5, 7, 9, 11, 13, 15, 17};
-}
-void path2()
-{
-}
-void path3()
-{
-}
-void path4()
-{
-}
-
 int traceLuggage(int &HP1, int &EXP1, int &M1, const int &E3)
 {
     //Complete this function to gain point on task 3
     int p1[9] = {1, 3, 5, 7, 9, 11, 13, 15, 17};
     int p2[7] = {2, 3, 5, 7, 11, 13, 17};
     int p3[20];
-    int p4[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    int p4[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     for (int i = 0, j = 2; i < 20; i++)
     {
         p3[i] = j * j;
@@ -245,8 +233,6 @@ int traceLuggage(int &HP1, int &EXP1, int &M1, const int &E3)
         if (!found2)
             M1 = ceil(M1 - 7 * 7 * E3 * 1.0 / 9); //neu ko tìm được hành lý -- tính M1
 
-        //path 3
-        //cout << "\n" << "Path 3" << " ";
         int max = -1;
         for (int i = 0; i < 20; i++)
         {
@@ -257,7 +243,6 @@ int traceLuggage(int &HP1, int &EXP1, int &M1, const int &E3)
         for (int i = 19; i >= 0; i--)
         {
             p3[i] = (int)ceil((p3[i] + E3) * 1.0 / max) % 26 + 65;
-            //cout << p3[i] << " ";
             if (p3[i] == 80)
             {
                 found3 = true;
@@ -270,9 +255,6 @@ int traceLuggage(int &HP1, int &EXP1, int &M1, const int &E3)
         }
         if (!found3)
             M1 = ceil(M1 - 20 * 20 * E3 * 1.0 / 9); // neu ko tìm được hành lý -- tính lại M1
-
-        //path 4
-        //cout << "\n" << "Path 4" << " ";
 
         int min = 1000000007, min_idx = 1;
         for (int i = 0; i < 12; i++)
@@ -307,12 +289,12 @@ int traceLuggage(int &HP1, int &EXP1, int &M1, const int &E3)
             EXP1 = EXP1 - (79 * E3) % 300;
             reset_HP(HP1);
             reset_money(M1);
-            reset_exp(EXP1, k);
+            reset_exp(EXP1);
             return -1;
         }
         reset_HP(HP1);
         reset_money(M1);
-        reset_exp(EXP1, k);
+        reset_exp(EXP1);
         return HP1 + EXP1 + M1;
     }
 
