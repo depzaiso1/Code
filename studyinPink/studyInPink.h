@@ -114,17 +114,19 @@ int firstMeet(int &EXP1, int &EXP2, const int &E1)
 //nhiem vu 2
 void ring_explain(int &EXP1, int &EXP2, const int &E2)
 {
-    EXP1 = ceil(EXP1 + (E2 * 1.0 / 9 + 10) / 3);
-    EXP2 = ceil(EXP2 + (E2 * 1.0 / 9 + 10));
+    double d = (E2 * 1.0 / 9 + 10);
+    EXP1 = ceil(EXP1 + d / 3);
+    EXP2 = ceil(EXP2 + d);
 }
 void jacket_explain(int &EXP1, int &EXP2, const int &E2)
 {
-    EXP1 = ceil(EXP1 + (0.35 * E2) / 3);
-    EXP2 = ceil(EXP2 + (0.35 * E2));
+    double d = (0.35 * E2);
+    EXP1 = ceil(EXP1 + d / 3);
+    EXP2 = ceil(EXP2 + d);
 }
 void luggage_explain(int &EXP1, int &EXP2, const int &E2)
 {
-    int d = (0.35 * E2) + (E2 * 1.0 / 9 + 10);
+    double d = (0.35 * E2) + (E2 * 1.0 / 9 + 10);
     EXP2 = ceil(EXP2 + 0.17 * d);
     EXP1 = ceil(EXP1 + (0.17 * d) / 3);
 }
