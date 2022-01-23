@@ -183,21 +183,24 @@ int traceLuggage(int &HP1, int &EXP1, int &M1, const int &E3)
     int p1[9] = {1, 3, 5, 7, 9, 11, 13, 15, 17};
     int p2[7] = {2, 3, 5, 7, 11, 13, 17};
     int p3[20];
-    int p4[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     for (int i = 0, j = 2; i < 20; i++)
     {
         p3[i] = j * j;
         j += 2;
     }
+    int p4[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    
     if (E3 >= 0 && E3 <= 999)
     {
-        //path 1
+        //initialize
         bool found1 = false;
         bool found2 = false;
         bool found3 = false;
         bool found4 = false;
 
         int k;
+
+        //path 1
         //cout << "Path 1" << " ";
         for (int i = 0; i < 9; i++)
         {
