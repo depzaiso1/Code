@@ -22,13 +22,14 @@ void solve()
 }
 int main()
 {
-    freopen("1input.txt", "r", stdin);
+    freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
     int testcase;
     cin >> testcase;
 
     for (int i = 0; i < testcase; i++)
     {
+
         cout << "Testcase #" << i + 1 << ": \n";
         solve();
         cout << "\n";

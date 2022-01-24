@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"name": "Learn-To-Code",
+			"path": ".."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"ostream": "cpp",
+			"iostream": "cpp",
+			"iomanip": "cpp",
+			"deque": "cpp",
+			"string": "cpp",
+			"vector": "cpp"
+		}
+	}
+}
