@@ -16,6 +16,7 @@ void process(const char *name, char *outstr)
         else
             temp[i] = ' ';
     }
+    temp[strlen(name) - 1] = '\0';
     for (int i = 0; i < strlen(temp) + 1; i++)
     {
         if (i == 0 || temp[i - 1] == ' ')
@@ -41,10 +42,8 @@ void process(const char *name, char *outstr)
             outstr[j] = temp[i];
             j++;
         }
-        else
-            continue;
     }
-    outstr[strlen(outstr)] = '\0';
+    outstr[strlen(outstr) - 1] = '\0';
 }
 int main()
 {
@@ -52,6 +51,5 @@ int main()
     char *outstr = new char[strlen(str) + 1];
     process(str, outstr);
     cout << outstr;
-
     return 0;
 }
