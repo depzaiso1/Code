@@ -27,7 +27,7 @@ using namespace std;
 void reset_exp(int &EXP)
 {
     if (EXP > 900)
-        EXP = 900; // Nếu vượt quá 900, trả về 900w
+        EXP = 900; // Nếu vượt quá 900, trả về 900
     if (EXP < 0)
         EXP = 0;
 }
@@ -51,8 +51,11 @@ void reset_money(int &M)
 int firstMeet(int &EXP1, int &EXP2, const int &E1)
 {
     //Complete this function to gain point on task 1
+
     if (E1 >= 0 && E1 <= 399)
     {
+        reset_exp(EXP1);
+        reset_exp(EXP2);
         if (E1 >= 0 && E1 <= 49)
             EXP2 += 25;
         if (E1 >= 50 && E1 <= 99)
@@ -78,24 +81,40 @@ int firstMeet(int &EXP1, int &EXP2, const int &E1)
     }
     if (E1 >= 400 && E1 <= 999)
     {
+        reset_exp(EXP1);
+        reset_exp(EXP2);
         if (E1 >= 400 && E1 <= 499)
+        {
             EXP2 = ceil(EXP2 + (E1 * 1.0 / 7 + 9)); //thong tin 1
+            reset_exp(EXP2);
+        }
         if (E1 >= 500 && E1 <= 599)
+        {
             EXP2 = ceil(EXP2 + (E1 * 1.0 / 9 + 11)); // thong tin 2
+            reset_exp(EXP2);
+        }
         if (E1 >= 600 && E1 <= 699)
+        {
             EXP2 = ceil(EXP2 + (E1 * 1.0 / 5 + 6)); // thong tin 3
+            reset_exp(EXP2);
+        }
         if (E1 >= 700 && E1 <= 799)
-        {                                           // thong tin 4
-            EXP2 = ceil(EXP2 + (E1 * 1.0 / 7 + 9)); // giai thich thong tin 1
+        { // thong tin 4
+            EXP2 = ceil(EXP2 + (E1 * 1.0 / 7 + 9));
+            reset_exp(EXP2); // giai thich thong tin 1
             if (EXP2 > 200)
             { // neu lon hon 200 thi giai thich thong tin 2
                 EXP2 = ceil(EXP2 + (E1 * 1.0 / 9 + 11));
+                reset_exp(EXP2);
             }
             // neu < 200 thi ko giai thich
         }
         if (E1 >= 800 && E1 <= 999)
         { // thong tin 5 __ Giai thich ca 2 thong tin 1&2, update EXP Watson
-            EXP2 = ceil(EXP2 + (E1 * 1.0 / 7 + 9) + (E1 * 1.0 / 9 + 11));
+            EXP2 = ceil(EXP2 + (E1 * 1.0 / 7 + 9));
+            reset_exp(EXP2); //thong tin 1
+            EXP2 = ceil(EXP2 + (E1 * 1.0 / 9 + 11));
+            reset_exp(EXP2); //thong tin 2
             if (EXP2 > 600)
             { // neu lon hon 600 giai thich thong tin 3
                 EXP2 = ceil(EXP2 + (E1 + 1.0 / 5 + 6));
@@ -140,29 +159,34 @@ int investigateScene(int &EXP1, int &EXP2, int &HP2, int &M2, const int &E2)
         if (E2 >= 0 && E2 <= 299)
         { //GIAI THICH NHAN
             ring_explain(EXP1, EXP2, E2);
+            reset_exp(EXP1);
+            reset_exp(EXP2);
         }
         if (E2 >= 300 && E2 <= 499)
         { //GIAI    THICH AO KHOAC
             ring_explain(EXP1, EXP2, E2);
             jacket_explain(EXP1, EXP2, E2);
+            reset_exp(EXP1);
+            reset_exp(EXP2);
         }
         if (E2 >= 500 && E2 <= 999)
         { //GIAI THICH HANH LY
             ring_explain(EXP1, EXP2, E2);
             jacket_explain(EXP1, EXP2, E2);
             luggage_explain(EXP1, EXP2, E2);
+            reset_exp(EXP1);
+            reset_exp(EXP2);
         }
 
         //bat dau giai doan 2
         //Watson chạy và giảm HP
         HP2 = ceil(HP2 - ((E2 * E2 * E2) / pow(2, 23)));
-
-        if (E2 % 2 == 0)
-            M2 = ceil(M2 + (E2 * E2) * 1.0 / 50);
-        reset_exp(EXP1);
-        reset_exp(EXP2);
-        reset_money(M2);
         reset_HP(HP2);
+        if (E2 % 2 == 0)
+        {
+            M2 = ceil(M2 + (E2 * E2) * 1.0 / 50);
+            reset_money(M2);
+        }
         return EXP2 + HP2 + M2 + EXP1;
     }
     else
@@ -189,7 +213,7 @@ int traceLuggage(int &HP1, int &EXP1, int &M1, const int &E3)
         j += 2;
     }
     int p4[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    
+
     if (E3 >= 0 && E3 <= 999)
     {
         //initialize
@@ -223,26 +247,26 @@ int traceLuggage(int &HP1, int &EXP1, int &M1, const int &E3)
         int s = 0, m = 0;
         for (int i = 0; i < 7; i++)
         {
-            p2[i] = (p2[i] + E3) % 26; 
-            s += p2[i];                
+            p2[i] = (p2[i] + E3) % 26;
+            s += p2[i];
         }
-        m = (int)ceil(s * 1.0 / 7); 
+        m = (int)ceil(s * 1.0 / 7);
         for (int i = 0; i < 7; i++)
         {
-            p2[i] = (p2[i] + s + m) % 26 + 65; 
-            
+            p2[i] = (p2[i] + s + m) % 26 + 65;
+
             if (p2[i] == 80)
             {
-                found2 = true; 
+                found2 = true;
                 k = i + 1;
-                HP1 = HP1 - p2[i] * k * 2; 
+                HP1 = HP1 - p2[i] * k * 2;
                 EXP1 = EXP1 + (1000 - p2[i] * k) % 101;
-                M1 = M1 - k * E3 * 1.0 / 9; 
+                M1 = M1 - k * E3 * 1.0 / 9;
                 break;
             }
         }
         if (!found2)
-            M1 = ceil(M1 - 7 * 7 * E3 * 1.0 / 9); 
+            M1 = ceil(M1 - 7 * 7 * E3 * 1.0 / 9);
 
         int max = -1;
         for (int i = 0; i < 20; i++)
