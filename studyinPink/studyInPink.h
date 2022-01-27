@@ -52,10 +52,11 @@ int firstMeet(int &EXP1, int &EXP2, const int &E1)
 {
     //Complete this function to gain point on task 1
 
+    reset_exp(EXP1);
+    reset_exp(EXP2);
+
     if (E1 >= 0 && E1 <= 399)
     {
-        reset_exp(EXP1);
-        reset_exp(EXP2);
         if (E1 >= 0 && E1 <= 49)
             EXP2 += 25;
         if (E1 >= 50 && E1 <= 99)
@@ -81,8 +82,6 @@ int firstMeet(int &EXP1, int &EXP2, const int &E1)
     }
     if (E1 >= 400 && E1 <= 999)
     {
-        reset_exp(EXP1);
-        reset_exp(EXP2);
         if (E1 >= 400 && E1 <= 499)
         {
             EXP2 = ceil(EXP2 + (E1 * 1.0 / 7 + 9)); //thong tin 1
@@ -111,19 +110,15 @@ int firstMeet(int &EXP1, int &EXP2, const int &E1)
         }
         if (E1 >= 800 && E1 <= 999)
         { // thong tin 5 __ Giai thich ca 2 thong tin 1&2, update EXP Watson
-<<<<<<< HEAD
             EXP2 = ceil(EXP2 + (E1 * 1.0 / 7 + 9));
             reset_exp(EXP2); //thong tin 1
             EXP2 = ceil(EXP2 + (E1 * 1.0 / 9 + 11));
             reset_exp(EXP2); //thong tin 2
-=======
-            EXP2 = ceil(EXP2 + (E1 * 1.0 / 7 + 9));//thong tin 1
-            EXP2 = ceil(EXP2 + (E1 * 1.0 / 9 + 11));//thong tin 2
->>>>>>> cad6fe88df1cfd5cabfc5ce41fbecf3bb91abd6c
             if (EXP2 > 600)
             { // neu lon hon 600 giai thich thong tin 3
                 EXP2 = ceil(EXP2 + (E1 + 1.0 / 5 + 6));
                 EXP2 = ceil(EXP2 * 1.15);
+                reset_exp(EXP2);
                 //GIAI THICH CA 3 THONG TIN --> WATSON cong them 15%
             }
         }
@@ -159,8 +154,13 @@ int investigateScene(int &EXP1, int &EXP2, int &HP2, int &M2, const int &E2)
 {
     //Complete this function to gain point on task 2
     // Giai đoạn 1
+
     if (E2 >= 0 && E2 <= 999)
     {
+        reset_exp(EXP1);
+        reset_exp(EXP2);
+        reset_HP(HP2);
+        reset_money(M2);
         if (E2 >= 0 && E2 <= 299)
         { //GIAI THICH NHAN
             ring_explain(EXP1, EXP2, E2);
@@ -187,6 +187,7 @@ int investigateScene(int &EXP1, int &EXP2, int &HP2, int &M2, const int &E2)
         //Watson chạy và giảm HP
         HP2 = ceil(HP2 - ((E2 * E2 * E2) / pow(2, 23)));
         reset_HP(HP2);
+
         if (E2 % 2 == 0)
         {
             M2 = ceil(M2 + (E2 * E2) * 1.0 / 50);
@@ -194,8 +195,7 @@ int investigateScene(int &EXP1, int &EXP2, int &HP2, int &M2, const int &E2)
         }
         return EXP2 + HP2 + M2 + EXP1;
     }
-    else
-        return -999;
+    return -999;
 }
 
 void debug(int p[], int size)
@@ -222,6 +222,9 @@ int traceLuggage(int &HP1, int &EXP1, int &M1, const int &E3)
     if (E3 >= 0 && E3 <= 999)
     {
         //initialize
+        reset_HP(HP1);
+        reset_exp(EXP1);
+        reset_money(M1);
         bool found1 = false;
         bool found2 = false;
         bool found3 = false;
@@ -242,11 +245,17 @@ int traceLuggage(int &HP1, int &EXP1, int &M1, const int &E3)
                 HP1 = HP1 - p1[i] * k * 2;
                 EXP1 = EXP1 + (1000 - p1[i] * k) % 101;
                 M1 = M1 - k * E3 * 1.0 / 9;
+                reset_HP(HP1);
+                reset_exp(EXP1);
+                reset_money(M1);
                 break;
             }
         }
         if (!found1)
+        {
             M1 = ceil(M1 - 9 * 9 * E3 * 1.0 / 9);
+            reset_money(M1);
+        }
 
         //path 2
         int s = 0, m = 0;
@@ -267,12 +276,17 @@ int traceLuggage(int &HP1, int &EXP1, int &M1, const int &E3)
                 HP1 = HP1 - p2[i] * k * 2;
                 EXP1 = EXP1 + (1000 - p2[i] * k) % 101;
                 M1 = M1 - k * E3 * 1.0 / 9;
+                reset_HP(HP1);
+                reset_exp(EXP1);
+                reset_money(M1);
                 break;
             }
         }
         if (!found2)
+        {
             M1 = ceil(M1 - 7 * 7 * E3 * 1.0 / 9);
-
+            reset_money(M1);
+        }
         int max = -1;
         for (int i = 0; i < 20; i++)
         {
@@ -290,11 +304,17 @@ int traceLuggage(int &HP1, int &EXP1, int &M1, const int &E3)
                 HP1 = HP1 - p3[i] * k * 3;
                 EXP1 = EXP1 + (3500 - p3[i] * k) % 300;
                 M1 = M1 - k * E3 * 1.0 / 9;
+                reset_HP(HP1);
+                reset_exp(EXP1);
+                reset_money(M1);
                 break;
             }
         }
         if (!found3)
+        {
             M1 = ceil(M1 - 20 * 20 * E3 * 1.0 / 9); // neu ko tìm được hành lý -- tính lại M1
+            reset_money(M1);
+        }
 
         int min = 1000000007, min_idx = 1;
         for (int i = 0; i < 12; i++)
@@ -316,13 +336,18 @@ int traceLuggage(int &HP1, int &EXP1, int &M1, const int &E3)
                 HP1 = HP1 - k * 4 * p4[i];
                 EXP1 = EXP1 + (4500 - p4[i] * k) % 400;
                 M1 = ceil(M1 - k * E3 * 1.0 / 9);
+                reset_HP(HP1);
+                reset_exp(EXP1);
+                reset_money(M1);
                 found4 = true;
                 break;
             }
         }
         if (!found4)
+        {
             M1 = ceil(M1 - 20 * 20 * E3 * 1.0 / 9);
-
+            reset_money(M1);
+        }
         if (!found1 && !found2 && !found3 && !found4)
         {
             HP1 = HP1 - (59 * E3) % 900;
