@@ -7,14 +7,13 @@ void process(const char *name, char *outstr)
     // TODO
     char *temp = new char[strlen(name) + 1];
     int j = 0;
-    for (int i = 0; i < strlen(name) + 1; i++)
+    for (int i = 0, j = 0; i < strlen(name) + 1; i++)
     {
-        if (('a' <= name[i] && name[i] <= 'z') || ('A' <= name[i] && 'Z' >= name[i]))
+        if (name[i] == ' ' || ('a' <= name[i] && name[i] <= 'z') || ('A' <= name[i] && 'Z' >= name[i]))
         {
-            temp[i] = name[i];
+            temp[j] = name[i];
+            j++;
         }
-        else
-            temp[i] = ' ';
     }
     temp[strlen(name) - 1] = '\0';
     for (int i = 0; i < strlen(temp) + 1; i++)
@@ -47,7 +46,7 @@ void process(const char *name, char *outstr)
 }
 int main()
 {
-    char str[] = "doAn VAN *(()hau @!#$";
+    char str[] = "  rober)(t *Xio* JAMES B(ON=D ^&*@ A ";
     char *outstr = new char[strlen(str) + 1];
     process(str, outstr);
     cout << outstr;
