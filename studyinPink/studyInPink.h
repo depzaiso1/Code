@@ -95,7 +95,8 @@ int firstMeet(int &EXP1, int &EXP2, const int &E1)
         }
         if (E1 >= 800 && E1 <= 999)
         { // thong tin 5 __ Giai thich ca 2 thong tin 1&2, update EXP Watson
-            EXP2 = ceil(EXP2 + (E1 * 1.0 / 7 + 9) + (E1 * 1.0 / 9 + 11));
+            EXP2 = ceil(EXP2 + (E1 * 1.0 / 7 + 9));//thong tin 1
+            EXP2 = ceil(EXP2 + (E1 * 1.0 / 9 + 11));//thong tin 2
             if (EXP2 > 600)
             { // neu lon hon 600 giai thich thong tin 3
                 EXP2 = ceil(EXP2 + (E1 + 1.0 / 5 + 6));
