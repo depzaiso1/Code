@@ -52,11 +52,10 @@ int firstMeet(int &EXP1, int &EXP2, const int &E1)
 {
     //Complete this function to gain point on task 1
 
-    reset_exp(EXP1);
-    reset_exp(EXP2);
-
     if (E1 >= 0 && E1 <= 399)
     {
+        reset_exp(EXP1);
+        reset_exp(EXP2);
         if (E1 >= 0 && E1 <= 49)
             EXP2 += 25;
         if (E1 >= 50 && E1 <= 99)
@@ -82,6 +81,8 @@ int firstMeet(int &EXP1, int &EXP2, const int &E1)
     }
     if (E1 >= 400 && E1 <= 999)
     {
+        reset_exp(EXP1);
+        reset_exp(EXP2);
         if (E1 >= 400 && E1 <= 499)
         {
             EXP2 = ceil(EXP2 + (E1 * 1.0 / 7 + 9)); //thong tin 1
@@ -116,7 +117,7 @@ int firstMeet(int &EXP1, int &EXP2, const int &E1)
             reset_exp(EXP2); //thong tin 2
             if (EXP2 > 600)
             { // neu lon hon 600 giai thich thong tin 3
-                EXP2 = ceil(EXP2 + (E1 + 1.0 / 5 + 6));
+                EXP2 = ceil(EXP2 + (E1 * 1.0 / 5 + 6));
                 EXP2 = ceil(EXP2 * 1.15);
                 reset_exp(EXP2);
                 //GIAI THICH CA 3 THONG TIN --> WATSON cong them 15%
@@ -244,7 +245,7 @@ int traceLuggage(int &HP1, int &EXP1, int &M1, const int &E3)
                 k = i + 1;
                 HP1 = HP1 - p1[i] * k * 2;
                 EXP1 = EXP1 + (1000 - p1[i] * k) % 101;
-                M1 = M1 - k * E3 * 1.0 / 9;
+                M1 = ceil(M1 - k * E3 * 1.0 / 9);
                 reset_HP(HP1);
                 reset_exp(EXP1);
                 reset_money(M1);
@@ -275,7 +276,7 @@ int traceLuggage(int &HP1, int &EXP1, int &M1, const int &E3)
                 k = i + 1;
                 HP1 = HP1 - p2[i] * k * 2;
                 EXP1 = EXP1 + (1000 - p2[i] * k) % 101;
-                M1 = M1 - k * E3 * 1.0 / 9;
+                M1 = ceil(M1 - k * E3 * 1.0 / 9);
                 reset_HP(HP1);
                 reset_exp(EXP1);
                 reset_money(M1);
@@ -303,7 +304,7 @@ int traceLuggage(int &HP1, int &EXP1, int &M1, const int &E3)
                 k = 20 - i;
                 HP1 = HP1 - p3[i] * k * 3;
                 EXP1 = EXP1 + (3500 - p3[i] * k) % 300;
-                M1 = M1 - k * E3 * 1.0 / 9;
+                M1 = ceil(M1 - k * E3 * 1.0 / 9);
                 reset_HP(HP1);
                 reset_exp(EXP1);
                 reset_money(M1);
@@ -345,7 +346,7 @@ int traceLuggage(int &HP1, int &EXP1, int &M1, const int &E3)
         }
         if (!found4)
         {
-            M1 = ceil(M1 - 20 * 20 * E3 * 1.0 / 9);
+            M1 = ceil(M1 - 12 * 12 * E3 * 1.0 / 9);
             reset_money(M1);
         }
         if (!found1 && !found2 && !found3 && !found4)
