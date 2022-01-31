@@ -185,7 +185,6 @@ int investigateScene(int &EXP1, int &EXP2, int &HP2, int &M2, const int &E2)
         }
 
         //bat dau giai doan 2
-        //Watson chạy và giảm HP
         HP2 = ceil(HP2 - ((E2 * E2 * E2) / pow(2, 23)));
         reset_HP(HP2);
 
@@ -199,14 +198,6 @@ int investigateScene(int &EXP1, int &EXP2, int &HP2, int &M2, const int &E2)
     return -999;
 }
 
-void debug(int p[], int size)
-{
-    for (int i = 0; i < size; i++)
-    {
-        cout << p[i] << " ";
-    }
-    cout << endl;
-}
 int traceLuggage(int &HP1, int &EXP1, int &M1, const int &E3)
 {
     //Complete this function to gain point on task 3
@@ -234,7 +225,6 @@ int traceLuggage(int &HP1, int &EXP1, int &M1, const int &E3)
         int k;
 
         //path 1
-        //cout << "Path 1" << " ";
         for (int i = 0; i < 9; i++)
         {
             p1[i] = (int)ceil((p1[i] + E3)) % 26 + 65;
