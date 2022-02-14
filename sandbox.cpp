@@ -1,16 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-template <typename T, typename U>
-T add(T num1, U num2)
+void calSum(string filename)
 {
-    return (num1 + num2);
+    ifstream ifs(filename);
+    long long n;
+    long long sum = 0;
+    while (ifs >> n)
+    {
+        sum += n;
+    }
+    cout << sum << '\n';
+    ifs.close();
 }
 int main()
 {
-    double a = 4.1, b = 6.0;
-    double c = add<double, int>(a, b);
-
-    cout << "Total of a and b is " << c << endl;
+    string filename("input.txt");
+    calSum(filename);
+    system("pause");
     return 0;
 }

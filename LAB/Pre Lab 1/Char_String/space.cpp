@@ -37,10 +37,11 @@ void process(const char *str, char *outstr)
 
 int main()
 {
-    //freopen("input.txt", "r", stdin);
-    //freopen("output.txt", "w", stdout);
-    char str[] = "   abc   gef   dd  cef  ";
+    // freopen("input.txt", "r", stdin);
+    // freopen("output.txt", "w", stdout);
+    char str[] = "   abc   gef   dd  cef     ";
     char *outstr = new char[strlen(str) + 1];
     process(str, outstr);
     cout << outstr;
+    return 0;
 }
