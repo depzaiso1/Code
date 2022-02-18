@@ -1,46 +1,45 @@
-// Student may implement another function as need
+// C++ program to compute sum of digits
+// in numbers from 1 to n
 #include <bits/stdc++.h>
 using namespace std;
-void printFirstRepeatedWord(char str[])
+
+int sumOfDigitsFrom1ToNUtil(int n, int a[])
 {
-    // TODO
-    char word[100][100];
-    int i = 0, j = 0, k, count = 0;
-    for (int k = 0; str[k] != '\0'; k++)
-    {
-        if (str[k] != ' ' && str[k] != '\0')
-        {
-            word[i][j++] = str[k];
-        }
-        else
-        {
-            word[i][j] = '\0';
-            i++;
-            j = 0;
-        }
-    }
-    for (int m = 0; m < i + 1; m++)
-    {
-        for (int n = m + 1; n < i + 1; n++)
-        {
-            if (strcmp(word[m], word[n]) == 0)
-            {
-                count++;
-                break;
-            }
-        }
-        if (count > 0)
-        {
-            cout << word[m];
-            break;
-        }
-    }
-    if (count == 0)
-    {
-        cout << "No Repetition";
-    }
+    if (n < 10)
+        return (n * (n + 1) / 2);
+
+    int d = (int)(log10(n));
+    int p = (int)(ceil(pow(10, d)));
+    int msd = n / p;
+
+    return (msd * a[d] + (msd * (msd - 1) / 2) * p +
+            msd * (1 + n % p) +
+            sumOfDigitsFrom1ToNUtil(n % p, a));
 }
+
+// Function to computer sum of digits in
+// numbers from 1 to n
+int sumOfDigitsFrom1ToN(int n)
+{
+    int d = (int)(log10(n));
+    int a[d + 1];
+    a[0] = 0;
+    a[1] = 45;
+
+    for (int i = 2; i <= d; i++)
+        a[i] = a[i - 1] * 10 + 45 *
+                                   (int)(ceil(pow(10, i - 1)));
+
+    return sumOfDigitsFrom1ToNUtil(n, a);
+}
+
+// Driver code
 int main()
 {
-    char str[] = "car taxi bike bike car taxi";
+    int a, b;
+    cin >> a >> b;
+    cout << sumOfDigitsFrom1ToN(b) - sumOfDigitsFrom1ToN(a);
+    return 0;
 }
+
+// This code is contributed by ajaykr00kj
