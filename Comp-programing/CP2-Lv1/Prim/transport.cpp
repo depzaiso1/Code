@@ -63,7 +63,6 @@ int main()
     cin >> testcase;
     for (int tc = 0; tc < testcase; tc++)
     {
-
         cout << "Case #" << tc + 1 << ": ";
         solve();
     }
