@@ -16,6 +16,7 @@
 #include <cmath>
 #include <string>
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -30,12 +31,11 @@ string notebook1(string ntb1) {
     inputfile.open(ntb1);
     string s;
     inputfile>>s;
-    int n = s.length();
-    int n1=0;
-    for(int i=0;i<3;i++){
-        if(48<=s[n-3+i]<=57)      n1 += (s[i]-48)*pow(10,2-i);
-        else return "0000000000";
+    string num = s.substr(11,3);
+    for(char x: num){
+        if(x <=48 && x >=57)  return "000000000";
     }
+    int n1 = stoi(num);
     int s0=0;
     int s1=0;
     int s2=0;
@@ -46,9 +46,9 @@ string notebook1(string ntb1) {
     int s7=0;
     int s8=0;
     int s9=0;
-    int a;
     int z=0;
-    while(z<n1){
+    while(n1--){
+        int a;
         inputfile>>a;
         if(a==0)    s0 ++;
         if(a==1)    s1 ++;
@@ -83,28 +83,32 @@ string notebook2(string ntb2) {
     inputfile.open(ntb2);
     string number;
     inputfile>>number;
-    int n=0;
-    int len = number.length();
-    for(int i=0;i<len;i++){
-        if(48<=number[len-1-i]<=57)   n += (number[len-1-i]-48)*pow(10,i);
-        else return "1111111111";
+    for(char x:number){
+        if(x<=48 && x>=57)  return "1111111111";
     }
-    
+    int n = stoi(number);
     if(n<5)    return "1111111111";
     
-    string s[n];
     int count =0;
-    for(int i=0;i<n;i++){
-        inputfile>>s[i];
-        int found1 = s[i].find("pink");
-        while(found1 >= 0){
+    int viTri;
+    for(int i=0;i<n+1;i++){
+        string s;
+        getline(inputfile,s);
+        viTri=0;
+        while(true)
+        {
+            int a= s.find("Pink",viTri);
+            if(a<0) break;
             count++;
-            found1 = s[i].find("pink",found1+1);
+            viTri=a+1;
         }
-        int found2 = s[i].find("Pink");
-        while(found2 >= 0){
+        viTri=0;
+        while(true)
+        {
+            int a= s.find("pink",viTri);
+            if(a<0) break;
             count++;
-            found2 = s[i].find("Pink",found2+1);
+            viTri=a+1;
         }
     }
     count = pow(count,2);
@@ -165,13 +169,15 @@ string notebook3(string ntb3) {
     inputfile.open(ntb3);
     int array2D[10][10];
     for(int i=0;i<10;i++){
+        char a;
         char temp ='|';
         for(int j=0;j<9;j++){
-            inputfile >> array2D[i][j] >> temp;
-            if(array2D[i][j] < 0 )      array2D[i][j] = abs(array2D[i][j]);
+            inputfile >> a >> temp;
+            array2D[i][j] = a-48;
         }
-        inputfile >> array2D[i][9];
-        if(array2D[i][9] < 0 )      array2D[i][9] = abs(array2D[i][9]);
+        char b;
+        inputfile >> b;
+        array2D[i][9] = b-48;
     }
     for(int i=0;i<9;i++){
         for(int j=i+1;j<10;j++){
@@ -204,7 +210,7 @@ string notebook3(string ntb3) {
                 max=array2D[i][j];
                 vitri=j;
             }
-        res[i] += vitri;
+        res[i] += vitri+48;
         }  
     }
     inputfile.close();
@@ -216,23 +222,26 @@ void reverseStr(string& str){
         swap(str[i], str[n - i - 1]);
 }
 
+string g(string p1, string p2){
+    string chuoiXuatRa="0000000000";
+    int num, du=0;
+    for(int i=0;i<10;i++)
+    {
+        num=p1[i]-48+p2[i]-48+du;
+        if(num>9)
+        {
+            num-=10;
+            du=1;
+        }
+        else du=0;
+        chuoiXuatRa[i]=num+48;
+    }
+    return chuoiXuatRa;
+}
+
 string generateListPasswords(string pwd1, string pwd2, string pwd3) {
     // Complete this function to gain point
-    string result = pwd1+","+pwd2+","+pwd3+",";
-    reverseStr(pwd1);
-    reverseStr(pwd2);
-    reverseStr(pwd3);
-    string pwd4 = to_string(stoi(pwd1)+stoi(pwd2));
-    string pwd5 = to_string(stoi(pwd1)+stoi(pwd3));        
-    string pwd6 = to_string(stoi(pwd3)+stoi(pwd2));
-    result = result + pwd4 + "," + pwd5 + "," + pwd6 + ",";
-    reverseStr(pwd4);
-    reverseStr(pwd5);
-    reverseStr(pwd6);
-    string pwd7 = to_string(stoi(pwd1)+stoi(pwd4));
-    string pwd8 = to_string(stoi(pwd3)+stoi(pwd6));        
-    string pwd9 = to_string(stoi(pwd4)+stoi(pwd5));
-    return result;
+    return pwd1+","+pwd2+","+pwd3+","+g(pwd1,pwd2)+","+g(pwd1,pwd3)+","+g(pwd2,pwd3)+","+g(g(pwd1,pwd2),pwd3)+","+g(pwd1,g(pwd2,pwd3))+","+g(g(pwd1,pwd2),g(pwd1,pwd3));
 }
 
 bool chaseTaxi(
@@ -243,42 +252,14 @@ bool chaseTaxi(
     string & outCatchUps
 ) {
     // Complete this function to gain point
-    int n = moves.length();
-    int x=0;
-    int y=0;
-    arr[0][0] = -9;
-    for(int i=0;i<n;i++){
-        switch (moves[i])
-        {
-        case 'U':
-            if(y!=0)    y++;
-            else continue;     
-            break;
-        case 'D':
-            if(y!=0)    y--;
-            else continue;
-            break;
-        case 'R':
-            if(x!=0)    x++;
-            else continue;
-            break;
-        case 'L':
-            if(x!=0)    x--;
-            else continue;
-            break;
-        }
-        arr[x][y] = -9;    
-    }
 
     int v=0, quantity=0;
     while(true){
-        int s = points.find("-",v);
+        int s = points.find("(",v);
         if(s<0)     break;
         v++;
         quantity ++;
     }
-    quantity ++;
-
     int a[quantity];
     int b[quantity];
     int len = points.length();
@@ -290,6 +271,32 @@ bool chaseTaxi(
         }
         if(points[i]==','){
             b[k++] = points[i+1] - 48;
+        }
+        int n = moves.length();
+        int x=0;
+        int y=0;
+        arr[0][0] = -9;
+        for(int i=0;i<n;i++){
+            switch (moves[i])
+            {
+            case 'U':
+                if(y!=0)    y++;
+                else continue;     
+                break;
+            case 'D':
+                if(y!=0)    y--;
+                else continue;
+                break;
+            case 'R':
+                if(x!=0)    x++;
+                else continue;
+                break;
+            case 'L':
+                if(x!=0)    x--;
+                else continue;
+                break;
+            }
+            arr[y][x] = -9;    
         }
     }
     for(int i=0;i<quantity-1;i++){
@@ -309,6 +316,7 @@ string enterLaptop(string tag, string message) {
     inputfile >> a >> mail; 
     inputfile >> b >> number >> s;
     string result = mail + ";";
+    if(number == 0 )       return result;
     for(int i=0;i<number;i++){
         result += message;
     }
