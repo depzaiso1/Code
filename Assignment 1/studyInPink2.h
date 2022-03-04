@@ -382,14 +382,17 @@ bool chaseTaxi(
         if (!flag)
         {
             time[i] = time[i - 1] + 14 * (abs(p[0][i] - p[0][i - 1]) + abs(p[1][i] - p[1][i - 1]));
-            outTimes += to_string(time[i]);
+            outTimes = outTimes + to_string(time[i]);
             if (arr[p[0][i]][p[1][i]] >= time[i])
             {
                 flag = true;
-                outCatchUps = outCatchUps + "Y" + ";"; // duoi kip
+                outCatchUps = outCatchUps + "Y"; // duoi kip
             }
             else
+            {
                 outCatchUps = outCatchUps + "N" + ";"; // chua duoi kip
+                outTimes = outTimes + ";";
+            }
         }
         else if (flag)
         {
