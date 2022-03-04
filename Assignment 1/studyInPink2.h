@@ -394,7 +394,7 @@ bool chaseTaxi(
         else if (flag)
         {
             outTimes = outTimes + ";" + "-";
-            outCatchUps = outCatchUps + ";" + "-";
+            outCatchUps = outCatchUps + ";" + "-"; // neu duoi kip roi, in tiep phan sau
         }
     }
     return flag;
