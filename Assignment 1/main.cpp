@@ -9,7 +9,7 @@
 
 // The library here is concretely set, students are not allowed to include any other libraries.
 
-#include "studyInPink2_Tho.h"
+#include "studyInPink2.h"
 using namespace std;
 
 int readFile(

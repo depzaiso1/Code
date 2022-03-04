@@ -29,9 +29,9 @@ int cnt[10] = {0};
 string notebook1(string ntb1)
 {
     // Complete this function to gain point
-    ifstream quang(ntb1);
+    ifstream fin(ntb1);
     string data;
-    quang >> data;
+    fin >> data;
     int size = data.length();
     string numb = data.substr(11, 3);
     for (char x : numb)
@@ -46,7 +46,7 @@ string notebook1(string ntb1)
     while (n1--)
     {
         int x;
-        quang >> x; // cin >> x sai
+        fin >> x; // cin >> x sai
         cnt[x] = (cnt[x] + 1) % 10;
     }
 
@@ -186,7 +186,7 @@ string notebook3(string ntb3)
     for (int i = 0; i < 10; i++)
     {
         string data;
-        getline(cin, data);
+        getline(fin, data);
 
         for (int id = 0; id < data.size(); id++)
             if (data[id] == '|' || data[id] == '-')
@@ -249,15 +249,6 @@ string notebook3(string ntb3)
         ans += to_string(pos_max);
     }
     // debug
-    for (int i = 0; i < 10; i++)
-    {
-        for (int j = 0; j < 10; j++)
-        {
-            cout << a[i][j] << " ";
-        }
-        cout << endl;
-    }
-
     return ans;
 }
 
