@@ -1,64 +1,132 @@
 #include <bits/stdc++.h>
+
 using namespace std;
-string notebook2(string ntb2)
+bool isPrime(int n)
 {
-    // Complete this function to gain point
-    // ifstream fin(ntb2);
-    // fin.open(ntb2);
-    string data;
-    cin >> data;
-    int size = data.length();
-    int cntP = 0;
-    if (size != 5)
-        return "1111111111";
+    // Corner cases
+    if (n <= 1)
+        return false;
+    if (n <= 3)
+        return true;
 
-    for (char x : data)
-    {
-        if (x < '0' || x > '9')
-            return "1111111111";
-    }
+    // This is checked so that we can skip
+    // middle five numbers in below loop
+    if (n % 2 == 0 || n % 3 == 0)
+        return false;
 
-    int n2 = stoi(data);
-    if (n2 < 5 || n2 > 100)
-        return "1111111111";
+    for (int i = 5; i * i <= n; i = i + 6)
+        if (n % i == 0 || n % (i + 2) == 0)
+            return false;
 
-    for (int i = 0; i < n2 + 1; i++)
-    {
-        string str;
-        getline(cin, str);
-        int pos = 0;
-        while (true)
-        {
-            int pnk = str.find("Pink", pos);
-            if (pnk < 0)
-                break;
-            cntP += 1;
-            pos = pnk + 1;
-        }
-        pos = 0;
-        while (true)
-        {
-            int pnk = str.find("pink", pos);
-            if (pnk < 0)
-                break;
-            cntP += 1;
-            pos = pnk + 1;
-        }
-    }
-    cout << cntP; // debug
-    if (countDigit(cntP) < 5)
-        cntP *= cntP;
-    string strP = to_string(cntP);
-    while (strP.size() < 10)
-    {
-        strP = strP + "9";
-    }
-    // fin.close();
-    return strP;
+    return true;
 }
+
+int toPrime(int n)
+{
+    if (isPrime(n))
+        return n;
+    return toPrime(n + 1);
+}
+
+bool isPerfectSquare(int x)
+{
+    int s = sqrt(x);
+    return (s * s == x);
+}
+
+// Returns true if n is a Fibonacci Number, else false
+bool isFibonacci(int n)
+{
+    // n is Fibonacci if one of 5*n*n + 4 or 5*n*n - 4 or both
+    // is a perfect square
+    return isPerfectSquare(5 * n * n + 4) ||
+           isPerfectSquare(5 * n * n - 4);
+}
+
+int toFibonacci(int n)
+{
+    if (isFibonacci(n))
+        return n;
+    return toFibonacci(n + 1);
+}
+// function
 int main()
 {
-    string str = "00004";
-    int size = str.size();
-    cout << size;
+    // ifstream fin(ntb3);
+    int a[10][10];
+
+    for (int i = 0; i < 10; i++)
+    {
+        string data;
+        getline(cin, data);
+
+        for (int id = 0; id < data.size(); id++)
+            if (data[id] == '|' || data[id] == '-')
+                data[id] = ' ';
+
+        stringstream ss(data);
+        int num;
+        int j = 0;
+
+        while (ss >> num)
+        {
+            a[i][j] = (num);
+            j++;
+        }
+    } /// xong nhap vao mang hai chieu
+
+    for (int i = 0; i < 9; i++)
+    {
+        for (int j = i + 1; j < 10; j++)
+        {
+            a[i][j] = toPrime(a[i][j]);
+        }
+    }
+
+    for (int i = 1; i < 10; i++)
+    {
+        for (int j = 0; j < i; j++)
+        {
+            a[i][j] = toFibonacci(a[i][j]);
+        }
+    }
+
+    for (int i = 0; i < 10; i++)
+    {
+        if (a[i][8] < a[i][7])
+            swap(a[i][7], a[i][8]);
+
+        if (a[i][9] < a[i][8])
+        {
+            swap(a[i][8], a[i][9]);
+            if (a[i][8] < a[i][7])
+                swap(a[i][8], a[i][7]);
+        }
+    }
+    string res = "";
+    for (int i = 0; i < 10; i++)
+    {
+        int pos = 0;
+        int max = a[i][0];
+        for (int j = 1; j < 10; j++)
+        {
+            if (a[i][j] >= max)
+            {
+                max = a[i][j];
+                pos = j;
+            }
+        }
+        // res += to_string(pos);
+        cout << pos;
+    }
+
+    // debug
+    for (int i = 0; i < 10; i++)
+    {
+        for (int j = 0; j < 10; j++)
+        {
+            cout << a[i][j] << " ";
+        }
+        cout << endl;
+    }
 }
