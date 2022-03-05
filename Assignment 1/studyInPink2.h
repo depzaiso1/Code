@@ -1,13 +1,13 @@
 /*
- * Ho Chi Minh City University of Technology
- * Faculty of Computer Science and Engineering
- * Initial code for Assignment 1
- * Programming Fundamentals Spring 2022
- * Author: Vu Van Tien
- * Date: 10.02.2022
- */
+* Ho Chi Minh City University of Technology
+* Faculty of Computer Science and Engineering
+* Initial code for Assignment 1
+* Programming Fundamentals Spring 2022
+* Author: Vu Van Tien
+* Date: 10.02.2022
+*/
 
-// The library here is concretely set, students are not allowed to include any other libraries.
+//The library here is concretely set, students are not allowed to include any other libraries.
 #ifndef studyInPink_h
 #define studyInPink_h
 
@@ -21,14 +21,14 @@
 using namespace std;
 
 ////////////////////////////////////////////////////////////////////////
-/// STUDENT'S ANSWER BEGINS HERE
-/// Complete the following functions
-/// DO NOT modify any parameters in the functions.
+///STUDENT'S ANSWER BEGINS HERE
+///Complete the following functions
+///DO NOT modify any parameters in the functions.
 ////////////////////////////////////////////////////////////////////////
-int cnt[10] = {0};
 string notebook1(string ntb1)
 {
     // Complete this function to gain point
+
     ifstream fin(ntb1);
     string data;
     fin >> data;
@@ -68,7 +68,6 @@ string notebook2(string ntb2)
 {
     // Complete this function to gain point
     ifstream fin(ntb2);
-    // fin.open(ntb1);
     string data;
     fin >> data;
     int size = data.length();
@@ -109,7 +108,7 @@ string notebook2(string ntb2)
             pos = pnk + 1;
         }
     }
-    cout << cntP; // debug
+    // cout << cntP; // debug
     if (countDigit(cntP) < 5)
         cntP *= cntP;
     string strP = to_string(cntP);
@@ -117,7 +116,6 @@ string notebook2(string ntb2)
     {
         strP = strP + "9";
     }
-    // fin.close();
     return strP;
 }
 
@@ -389,8 +387,8 @@ bool chaseTaxi(
         }
         else if (flag)
         {
-            outTimes = outTimes + ";" + "-";
-            outCatchUps = outCatchUps + ";" + "-"; // neu duoi kip roi, in tiep phan sau
+            outTimes = outTimes + "-" + ";";
+            outCatchUps = outCatchUps + "-" + ";"; // neu duoi kip roi, in tiep phan sau
         }
     }
     outTimes.pop_back();
