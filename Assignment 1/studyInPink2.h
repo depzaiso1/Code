@@ -36,8 +36,8 @@ string notebook1(string ntb1)
     string numb = data.substr(11, 3);
     for (char x : numb)
     {
-        if (x <= 48 && x >= 57)
-            return "000000000";
+        if (x < 48 || x > 57) // fixed
+            return "0000000000";
     } // check valid
     int n1 = stoi(numb);
     // cout << numb << endl;
@@ -164,7 +164,7 @@ bool isFibonacci(int n)
 
 int toFibonacci(int n)
 {
-    if (isFibonacci)
+    if (isFibonacci(n)) // fixed
         return n;
     return toFibonacci(n + 1);
 }
@@ -259,7 +259,7 @@ string g(string p1, string p2)
     int sign = 0;
     for (int i = 0; i < 10; i++)
     {
-        numb = (int)p1[i] + (int)p2[i] + sign;
+        numb = p1[i] - '0' + (int)p2[i] - '0' + sign; // fixed
         if (numb > 9)
         {
             numb = numb % 10;
@@ -328,7 +328,7 @@ bool chaseTaxi(
         {
             if (col + 1 == 100)
                 continue;
-            arr[row][col + 1] = arr[row][col + 1] + 9;
+            arr[row][col + 1] = arr[row][col] + 9;
             col++;
         }
     } // taxi plus 9 in the arr[100][100]
@@ -345,7 +345,7 @@ bool chaseTaxi(
     }
     stringstream convert(points);
     int coor;
-    int p[1][100 * 100] = {};
+    int p[2][100 * 100];
     int index = 0, j = 0;
     while (convert >> coor)
     {
@@ -367,12 +367,15 @@ bool chaseTaxi(
     bool flag = false;
 
     int time[num_points];
-    time[0] = 14 * (abs(p[1][0] - p[0][0]) + abs(p[1][1] - p[0][1]));
-    for (int i = 1; i < num_points - 1; i++)
+    time[0] = 14 * (p[0][0] + p[1][0]);
+    for (int i = 0; i < num_points; i++)
     {
         if (!flag)
         {
-            time[i] = time[i - 1] + 14 * (abs(p[0][i] - p[0][i - 1]) + abs(p[1][i] - p[1][i - 1]));
+            if (i != 0)
+            {
+                time[i] = time[i - 1] + 14 * (abs(p[0][i] - p[0][i - 1]) + abs(p[1][i] - p[1][i - 1]));
+            }
             outTimes = outTimes + to_string(time[i]);
             if (arr[p[0][i]][p[1][i]] >= time[i])
             {
@@ -391,6 +394,8 @@ bool chaseTaxi(
             outCatchUps = outCatchUps + ";" + "-"; // neu duoi kip roi, in tiep phan sau
         }
     }
+    outTimes.pop_back();
+    outCatchUps.pop_back();
     return flag;
 }
 
