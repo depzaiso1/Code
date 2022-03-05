@@ -1,13 +1,13 @@
 /*
-* Ho Chi Minh City University of Technology
-* Faculty of Computer Science and Engineering
-* Initial code for Assignment 1
-* Programming Fundamentals Spring 2022
-* Author: Vu Van Tien
-* Date: 10.02.2022
-*/
+ * Ho Chi Minh City University of Technology
+ * Faculty of Computer Science and Engineering
+ * Initial code for Assignment 1
+ * Programming Fundamentals Spring 2022
+ * Author: Vu Van Tien
+ * Date: 10.02.2022
+ */
 
-//The library here is concretely set, students are not allowed to include any other libraries.
+// The library here is concretely set, students are not allowed to include any other libraries.
 #ifndef studyInPink_h
 #define studyInPink_h
 
@@ -21,9 +21,9 @@
 using namespace std;
 
 ////////////////////////////////////////////////////////////////////////
-///STUDENT'S ANSWER BEGINS HERE
-///Complete the following functions
-///DO NOT modify any parameters in the functions.
+/// STUDENT'S ANSWER BEGINS HERE
+/// Complete the following functions
+/// DO NOT modify any parameters in the functions.
 ////////////////////////////////////////////////////////////////////////
 string notebook1(string ntb1)
 {
@@ -33,7 +33,11 @@ string notebook1(string ntb1)
     string data;
     fin >> data;
     int size = data.length();
-    string numb = data.substr(11, 3);
+    string numb = data.substr(11);
+
+    if (numb.size() != 3)
+        return "0000000000";
+
     for (char x : numb)
     {
         if (x < 48 || x > 57) // fixed
