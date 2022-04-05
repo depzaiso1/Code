@@ -1,37 +1,61 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> cnt(10, 0);
-bool check = 0;
+int t, r, c;
+const int MAXN = 2 * 10 + 2;
+char a[MAXN][MAXN];
 
-string cur_val, res;
-
-void backtracking(string &s, int idx, bool isSmaller)
+void solve()
 {
-    if (check)
+    cin >> r >> c;
+    a[0][0] = a[0][1] = a[1][0] = a[1][1] = '.';
+    int i = 0, j = 2;
+    while (j < 2 * c + 1)
     {
-        return;
+        a[0][j] = '+';
+        a[0][j + 1] = '-';
+        j += 2;
     }
-    if (idx == s.size())
+    j = 2;
+    while (j < 2 * c + 1)
     {
-        res = cur_val;
-        check = 1;
-        return;
+        a[1][j] = '|';
+        a[1][j + 1] = '.';
+        j += 2;
     }
-    char x = s[idx];
-    if (isSmaller)
+    for (int i = 2; i < 2 * r + 1; i++)
     {
-        x = '9';
-    }
-    for (char i = x; i >= '0' && !check; i--)
-    {
-        if (cnt[i - '0'] < 2)
+        for (int j = 0; j < 2 * c + 1; j += 2)
         {
-            cnt[i - '0']
+            if (i % 2 == 0)
+            {
+                a[i][j] = '+';
+                a[i][j + 1] = '-';
+            }
+            else
+            {
+                a[i][j] = '|';
+                a[i][j + 1] = '.';
+            }
         }
+    }
+    // debug
+    for (int i = 0; i < 2 * r + 1; i++)
+    {
+        for (int j = 0; j < 2 * c + 1; j++)
+        {
+            cout << a[i][j];
+        }
+        cout << '\n';
     }
 }
 
 int main()
 {
+    cin >> t;
+    for (int tc = 1; tc <= t; tc++)
+    {
+        cout << "Case #" << tc << ":\n";
+        solve();
+    }
 }
