@@ -1,6 +1,9 @@
 #include <iostream>
 using namespace std;
 
+char *concatStr(char *str1, char *str2)
+{
+}
 int main()
 {
     char s1[] = "Hello, ";

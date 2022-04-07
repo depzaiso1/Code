@@ -1,11 +1,11 @@
 #include <iostream>
+//#include "struct.cpp"
 using namespace std;
 struct node
 {
     int data;
     node *next;
 };
-
 node *pushback(node *&head, int x)
 {
     node *p = new node;
@@ -38,29 +38,35 @@ node *createLinkedList(int n)
     }
     return head;
 }
-int searchLinkedList(node *head, int key)
+
+node *insertNode(node *head, node *newNode, int position)
 {
-    node *p = head;
-    bool flag = false;
-    int cnt = 0;
-    while ((p != NULL) && !flag)
+    // TO DO
+    node *cur = head;
+    int pos = 1;
+    while (cur->next != nullptr)
     {
-        if (p->data == key)
+        if (position == 1)
         {
-            flag = true;
-            cnt++;
+            newNode->next = head;
+            head = newNode;
+            cur = newNode->next;
         }
-        else
+        else if (pos + 1 == position)
         {
-            p = head->next;
-            cnt++;
+            newNode->next = cur->next;
+            cur->next = newNode;
+            cur = newNode->next;
+
+            // break;
         }
+        // cur = cur->next;
+        pos++;
     }
-    if (!flag)
-    {
-        return -1;
-    }
-    return cnt;
+    newNode->next = cur->next;
+    cur->next = newNode;
+
+    return head;
 }
 void print(node *head)
 {
@@ -75,9 +81,11 @@ int main()
     int n = 0;
     cin >> n;
     node *head = createLinkedList(n);
+    node *newNode = new node();
+    cin >> newNode->data;
+    int position = 0;
+    cin >> position;
+    head = insertNode(head, newNode, position);
     print(head);
-    int m;
-    cin >> m;
-    cout << searchLinkedList(head, m);
     return 0;
 }

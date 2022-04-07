@@ -15,7 +15,6 @@ void addElement(int *&arr, int n, int val, int index)
     {
         b[i] = arr[i - 1];
     }
-    n++;
     arr = b;
 
     // debug
