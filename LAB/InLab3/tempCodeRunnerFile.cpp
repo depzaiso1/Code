@@ -1,16 +1,15 @@
 node *insertNode(node *head, node *newNode, int position)
-{
-    // TO DO
-    node *cur = head;
-    int pos = 1;
-    while (pos != position || cur->next == NULL)
-    {
-        cur = cur->next;
-        pos++;
-    }
-    cur->next = newNode;
+// {
+//     // TO DO
+//     node *cur = head;
+//     int pos = 1;
+//     while (pos != position || cur->next == nullptr)
+//     {
+//         cur = cur->next;
+//         pos++;
+//     }
+//     newNode->next = cur->next;
+//     cur->next = newNode;
 
-    newNode->next = cur->next;
-
-    return head;
-}
+//     return head;
+// }

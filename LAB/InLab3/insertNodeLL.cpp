@@ -39,6 +39,21 @@ node *createLinkedList(int n)
     return head;
 }
 
+// node *insertNode(node *head, node *newNode, int position)
+// {
+//     // TO DO
+//     node *cur = head;
+//     int pos = 1;
+//     while (pos != position || cur->next == nullptr)
+//     {
+//         cur = cur->next;
+//         pos++;
+//     }
+//     newNode->next = cur->next;
+//     cur->next = newNode;
+
+//     return head;
+// }
 node *insertNode(node *head, node *newNode, int position)
 {
     // TO DO
@@ -51,6 +66,7 @@ node *insertNode(node *head, node *newNode, int position)
             newNode->next = head;
             head = newNode;
             cur = newNode->next;
+            break;
         }
         else if (pos + 1 == position)
         {
@@ -58,13 +74,11 @@ node *insertNode(node *head, node *newNode, int position)
             cur->next = newNode;
             cur = newNode->next;
 
-            // break;
+            break;
         }
-        // cur = cur->next;
+        cur = cur->next;
         pos++;
     }
-    newNode->next = cur->next;
-    cur->next = newNode;
 
     return head;
 }
