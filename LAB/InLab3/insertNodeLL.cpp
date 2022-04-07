@@ -44,16 +44,19 @@ node *createLinkedList(int n)
 //     // TO DO
 //     node *cur = head;
 //     int pos = 1;
-//     while (pos != position || cur->next == nullptr)
+//     while (pos != position - 1 || cur->next == nullptr)
 //     {
 //         cur = cur->next;
 //         pos++;
 //     }
-//     newNode->next = cur->next;
-//     cur->next = newNode;
+       node *tmp = cur->next;
+       cur->next = newNode;
+//     newNode->next = tmp;
+  
 
 //     return head;
 // }
+
 node *insertNode(node *head, node *newNode, int position)
 {
     // TO DO
